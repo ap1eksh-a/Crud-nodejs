@@ -2,7 +2,7 @@
 
 ## Description
 
-This is a Node.js application that demonstrates basic CRUD (Create, Read, Update, Delete) operations with a MongoDB database. It allows you to manage data efficiently using RESTful APIs.
+This is a Node.js application that demonstrates basic CRUD (Create, Read, Update, Delete) operations with a MongoDB database. 
 
 ## Features
 
