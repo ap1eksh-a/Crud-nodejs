@@ -1,33 +1,38 @@
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 import express from 'express';
-const app = express();
-const port =4000;
-import route from './routes/routes.js';
 import path from 'path';
-import connectDB from './connectDB/connectDB.js';
 import bodyParser from 'body-parser';
 import itemRoutes from './routes/itemRoutes.js';
+import route from './routes/routes.js';
+import connectDB from './connectDB/connectDB.js';
 
-//connection for database
+// Load environment variables
+dotenv.config();
+
+const app = express();
+const port = process.env.PORT || 4000;
+
+// Connect to MongoDB
 connectDB();
 
-//body-parser
-app.use(bodyParser.urlencoded({extended:false})); 
-
-
-//setup for static file
-app.use(express.static(path.join(process.cwd(), 'public')));
-
+// Middleware for parsing request bodies
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/', itemRoutes);
-//setup for ejs template file
-app.set('view engine','ejs');
-app.set('views','./views');
 
+// Setup for serving static files
+app.use(express.static(path.join(process.cwd(), 'public')));
 
-//routes
-app.use('/',route);
+// Setup for ejs template engine
+app.set('view engine', 'ejs');
+app.set('views', './views');
 
-app.listen(port,()=>{
+// Routes
+app.use('/items', itemRoutes); // Assuming itemRoutes handle paths related to items
+app.use('/', route); // Main routes
+
+// Start the server
+app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });

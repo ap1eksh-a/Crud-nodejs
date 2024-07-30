@@ -1,12 +1,13 @@
 import mongoose from "mongoose";
-const connectDB = async()=>{
-   const connect = await mongoose.connect('mongodb://localhost:27017/crud_node');
-   if(connect){
-    console.log('connection successfull...')
-   }else{
-    console.log("connection failed...")
-   }
-}
 
+const connectDB = async () => {
+    try {
+        await mongoose.connect(process.env.CONNECTION_STRING);
+        console.log("Connected to MongoDB");
+    } catch (error) {
+        console.error("MongoDB connection failed:", error);
+        process.exit(1); // Exit process with failure
+    }
+};
 
 export default connectDB;
