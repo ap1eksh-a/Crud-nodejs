@@ -1,16 +1,12 @@
 import mongoose from "mongoose";
-import dotenv from 'dotenv';
+const connectDB = async()=>{
+   const connect = await mongoose.connect('mongodb://localhost:27017/crud_node');
+   if(connect){
+    console.log('connection successfull...')
+   }else{
+    console.log("connection failed...")
+   }
+}
 
-dotenv.config();
-
-const connectDB = async () => {
-    try {
-        const connect = await mongoose.connect(process.env.MONGODB_URI);
-        console.log('MongoDB connected successfully...');
-    } catch (error) {
-        console.error('MongoDB connection failed:', error.message);
-        process.exit(1); // Exit process with failure
-    }
-};
 
 export default connectDB;
